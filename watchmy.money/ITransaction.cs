@@ -10,5 +10,7 @@ namespace watchmy.money
     {
         string TId { get; set; }
         decimal Amount { get; set; }
+        DateTime Posted { get; set; }
+        string Description { get; set; }
     }
 }
