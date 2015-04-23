@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
+using ElCamino.AspNet.Identity.AzureTable;
+using ElCamino.AspNet.Identity.AzureTable.Model;
 using watchmy.money.Models;
 
 namespace watchmy.money
 {
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security;
+
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -35,6 +36,11 @@ namespace watchmy.money
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
+        public static async void StartupAsync()
+        {
+            var azureStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            await azureStore.CreateTablesIfNotExists();
+        }
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {

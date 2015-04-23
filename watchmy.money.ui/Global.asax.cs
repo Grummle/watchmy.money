@@ -13,6 +13,7 @@ namespace watchmy.money
     {
         protected void Application_Start()
         {
+            ApplicationUserManager.StartupAsync();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
