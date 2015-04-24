@@ -8,21 +8,20 @@ namespace watchmy.money.tests
 {
     using System.Runtime.InteropServices;
 
+    using Mailgun.Messages;
+    using Mailgun.Service;
+
     using NUnit.Framework;
 
     [TestFixture]
     public class Class1
     {
         [Test]
-        public void derp()
+        public async void derp()
         {
-            var rand = new Random();
-            var list = DummyMonthlyGenerator.GenerateEasyMonthly();
-
-
-            list.ForEach(x=>Console.WriteLine(string.Format("Date:{0} Desc:{1} Amount:{2}",x.Posted.ToShortDateString(),x.Description,x.Amount)));
-
-
+       
         }
+
+
     }
 }
