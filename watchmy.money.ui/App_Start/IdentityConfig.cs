@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using ElCamino.AspNet.Identity.AzureTable;
 using ElCamino.AspNet.Identity.AzureTable.Model;
+using Mailgun.AspNet.Identity;
 using watchmy.money.Models;
 
 namespace watchmy.money
@@ -19,6 +21,7 @@ namespace watchmy.money
     {
         public Task SendAsync(IdentityMessage message)
         {
+
             // Plug in your email service here to send an email.
             return Task.FromResult(0);
         }
@@ -82,7 +85,7 @@ namespace watchmy.money
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
-            manager.EmailService = new EmailService();
+            manager.EmailService = new MailgunMessageService("watchmy.money",ConfigurationSettings.AppSettings["MailGunKey"],"dillon@watchmy.money");//new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
