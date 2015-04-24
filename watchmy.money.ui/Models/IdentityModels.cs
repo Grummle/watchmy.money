@@ -20,7 +20,11 @@ namespace watchmy.money.Models
     public class ApplicationDbContext : IdentityCloudContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base()
+            : base((new IdentityConfiguration()
+            {
+                StorageConnectionString = System.Configuration.ConfigurationManager.AppSettings["IDAZURE_StorageConnectionString"],
+                TablePrefix = System.Configuration.ConfigurationManager.AppSettings["IDAZURE_TablePrefix"]
+            }))
         {
         }
 
