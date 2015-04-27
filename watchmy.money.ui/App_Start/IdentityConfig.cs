@@ -85,6 +85,7 @@ namespace watchmy.money
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
+            var key = ConfigurationSettings.AppSettings["MailGunKey"];
             manager.EmailService = new MailgunMessageService("watchmy.money",ConfigurationSettings.AppSettings["MailGunKey"],"dillon@watchmy.money");//new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
